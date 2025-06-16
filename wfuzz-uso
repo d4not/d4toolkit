@@ -1,0 +1,31 @@
+
+Parametros y uso de wfuzz
+
+-c
+colores
+
+--hc=<codigo que quieres que se oculte>
+para ocultar algun codigo de estado
+--hc=404,429
+
+-w <wordlist>
+para darle una wordlist para enumerar
+-w /usr/share/wordlist.txt
+
+-z [list<i,j,k,u> || file,file.txt || range,<rangomin-rangomax>]
+para pasarle una payload -
+FILE = wfuzz -z file,/usr/share/wordlists/dirb/common.txt -u http://example.com/FUZZ
+LIST = wfuzz -z list,admin,user,root -u http://example.com/login.php?user=FUZZ
+RANGE = wfuzz -z range,1-100 -u http://example.com/page.php?id=FUZZ
+HEX =wfuzz -z hex,1-10 -u http://example.com/item.php?id=FUZZ
+DATES = wfuzz -z dates,2020-01-01:2020-01-05 -u http://example.com/report.php?date=FUZZ
+PY = wfuzz -z py,"range(100, 110)" -u http://example.com/item.php?id=FUZZ
+
+payloads combinados 
+wfuzz -z list,admin,guest -z list,1234,admin -u http://example.com/login.php?user=FUZZ&pass=FUZ2Z
+
+//tips
+
+usar / despues de fuzz ayuda a que algunos servidores detecten rutas EJ .http://buenas.com/FUZZ/
+
+
